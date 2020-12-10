@@ -1,16 +1,13 @@
-# This is a sample Python script.
+from lexer import Lexer
+from parser_class import Parser
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+source_code = "1+1;"
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+lexer = Lexer().build_lexer()
+token_stream = lexer.lex(source_code)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+pg = Parser()
+pg.parse()
+parser = pg.build_parser()
+parser.parse(token_stream)

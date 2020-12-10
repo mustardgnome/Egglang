@@ -1,10 +1,15 @@
 from rply import LexerGenerator
 
-lg = LexerGenerator()
-lg.ignore(r"\s+")
-lg.add('NUMBER', r'\d+')
-lg.add('PLUS', r'\+')
-lg.add('SEMICOLON', r';')
-lexer = lg.build()
+class Lexer():
+    def __init__(self):
+        self.lg = LexerGenerator()
 
-source = lexer.lex('1+1;')
+    def add_tokens(self):
+        self.lg.ignore(r"\s+")
+        self.lg.add('NUMBER', r'\d+')
+        self.lg.add('PLUS', r'\+')
+        self.lg.add('SEMICOLON', r';')
+
+    def build_lexer(self):
+        self.add_tokens()
+        return self.lg.build()
