@@ -1,3 +1,6 @@
+"""
+these are the bytecode instructions that we will be using and converting our code into
+"""
 bytecodes = [
     'LOAD_CONST',
     'POP_TOP',
@@ -5,26 +8,23 @@ bytecodes = [
     'RETURN'
 ]
 
-
+"""
+creates an global variable thats the index for that said instruction
+"""
 for i, bytecode in enumerate(bytecodes):
     globals()[bytecode] = i
 
+"""
+this is for the binary operation as there could be different operations being used
+"""
 BINOP = {
     '+': globals()["BINARY_ADD"]
 }
 
-
+"""
+the bytecode object
+"""
 class ByteCode(object):
-    _immutable_fields_ = ['code', 'constants[*]']
-
     def __init__(self, code, constants):
         self.code = code
         self.constants = constants
-
-    def dump(self):
-        lines = []
-        for i in range(0, len(self.code), 2):
-            c = self.code[i]
-            c2 = self.code[i + 1]
-            lines.append(bytecodes[ord(c)] + " " + str(ord(c2)))
-        return '\n'.join(lines)

@@ -1,6 +1,9 @@
 import bytecode
 import objects
 
+"""
+This is our abstract syntax tree. Our program will be represented by this when it is parsed
+"""
 class Node(object):
     def __eq__(self, other):
         return (self.__class__ == other.__class__ and
@@ -35,12 +38,18 @@ class Number(Node):
     def compile(self, ctx):
         ctx.emit(bytecode.LOAD_CONST, ctx.new_const(objects.EggNumber(self.value)))
 
+"""
+can take any operation
+"""
 class BinOp(Node):
     def __init__(self, op, left, right):
         self.op = op
         self.left = left
         self.right = right
 
+    """
+    We have to compile down both sides to a set of instructions
+    """
     def compile(self, ctx):
         self.left.compile(ctx)
         self.right.compile(ctx)
