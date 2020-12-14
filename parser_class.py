@@ -12,6 +12,11 @@ class Parser():
         ('left', ['PLUS'])
     ],cache_id = "Egglang")
 
+    """
+    This is hard to explain in a single comment. I would recommend looking up parser grammar.
+    In essence we're taking this token stream and the parser looks through it all and figures out what our code looks like.
+    This is represented in an abstract syntax tree and it's just another form of our code.
+    """
     def parse(self):
         @self.pg.production("main : statements")
         def main(s):

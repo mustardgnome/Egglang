@@ -1,7 +1,7 @@
-from bytecode import ByteCode, RETURN
+from bytecode import ByteCode
 
 
-class CompilerContext(object):
+class Context(object):
 
     def __init__(self):
         self.data = []
@@ -11,29 +11,25 @@ class CompilerContext(object):
         self.constants.append(v)
         return len(self.constants) - 1
 
+    """
+    the emit function basically just appends the bytecode instruction and the argument to our data
+    """
     def emit(self, bc, arg=0):
         print(bc)
         self.data.append(chr(bc))
         self.data.append(chr(arg))
 
     def create_bytecode(self):
-        print(self.data)
         return ByteCode(
-            "".join(self.data),
-            self.constants[:],
+            self.data,
+            self.constants[:]
         )
 
-
 class Compiler(object):
-
     def __init__(self):
-        self.ctx = CompilerContext()
+        self.ctx = Context()
 
     def compile(self, ast):
         self.ctx.data = []
         ast.compile(self.ctx)
-        self.ctx.emit(RETURN, 0)
         return self.ctx.create_bytecode()
-
-def compile_ast(ast):
-    return Compiler().compile(ast)
